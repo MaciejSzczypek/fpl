@@ -1,13 +1,25 @@
+from enum import Enum
+from string import Template
 
-ENTRY_NAME_FIELD_NAME = "entry_name"
-ENTRY_FIELD_NAME = "entry"
-LAST_DEADLINE_BANK_FIELD_NAME = "last_deadline_bank"
-LAST_DEADLINE_TEAM_VALUE_FIELD_NAME = "last_deadline_value"
-LAST_DEADLINE_TOTAL_TRANSFERS_FIELD_NAME = "last_deadline_total_transfers"
-RESULTS_FIELD_NAME = "results"
-SUMMARY_EVENT_POINTS = "summary_event_points"
-SUMMARY_EVENT_RANK = "summary_event_rank"
-SUMMARY_OVERALL_POINTS = "summary_overall_points"
-SUMMARY_OVERALL_RANK = "summary_overall_rank"
-STANDINGS_FIELD_NAME = "standings"
-TEAM_NAME_FIELD_NAME = "Team name"
+
+class FieldName(Enum):
+    ENTRY = "entry"
+    ENTRY_NAME = "entry_name"
+    LAST_DEADLINE_BANK = "last_deadline_bank"
+    LAST_DEADLINE_TEAM_VALUE = "last_deadline_value"
+    LAST_DEADLINE_TOTAL_TRANSFERS = "last_deadline_total_transfers"
+    RESULTS = "results"
+    STANDINGS = "standings"
+    SUMMARY_EVENT_POINTS = "summary_event_points"
+    SUMMARY_EVENT_RANK = "summary_event_rank"
+    SUMMARY_OVERALL_POINTS = "summary_overall_points"
+    SUMMARY_OVERALL_RANK = "summary_overall_rank"
+    TEAM_NAME = "Team name"
+
+
+LEAGUE_REQUEST_TEMPLATE = Template(
+    f"https://fantasy.premierleague.com/api/leagues-classic/$league_entry/standings/"
+)
+TEAM_REQUEST_TEMPLATE = Template(
+    "https://fantasy.premierleague.com/api/entry/$team_entry/"
+)
