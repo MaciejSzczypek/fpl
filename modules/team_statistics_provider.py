@@ -1,59 +1,56 @@
-import requests
 import json
 from typing import Dict, Any
+
+import requests
+
 from modules.constants import FieldName, TEAM_REQUEST_TEMPLATE
-# todo overall and poland rank
 
 
 class TeamStatisticsProvider:
-    _NO_STATISTIC_VALUE = 0
     _DIVISION_FACTOR = 10
 
     @classmethod
-    def _get_value_divided_by_factor(cls, value) -> float:
+    def _get_value_divided_by_factor(cls, value: float) -> float:
         return value / cls._DIVISION_FACTOR
 
     @classmethod
-    def _get_formatted_rank_value(cls, rank_value) -> str:
+    def _get_formatted_rank_value(cls, rank_value: int) -> str:
+        rank_value_string = str(rank_value)
         formatted_rank_value = ""
-        for character_position, character in enumerate(reversed(str(rank_value))):
-            formatted_rank_value = character + formatted_rank_value
-            if (character_position + 1) % 3 == 0:
+        for character_position in range(1, len(rank_value_string) + 1):
+            formatted_rank_value = rank_value_string[-character_position] + formatted_rank_value
+            if character_position % 3 == 0:
                 formatted_rank_value = " " + formatted_rank_value
         return formatted_rank_value
 
     @classmethod
     def _get_team_value(cls, team_info: Dict[str, Any]) -> float:
         team_value = team_info.get(FieldName.LAST_DEADLINE_TEAM_VALUE.value)
-        if team_value:
-            return cls._get_value_divided_by_factor(team_value)
-        return cls._NO_STATISTIC_VALUE
+        return cls._get_value_divided_by_factor(team_value)
 
     @classmethod
     def _get_team_bank_value(cls, team_info: Dict[str, Any]) -> float:
         bank_value = team_info.get(FieldName.LAST_DEADLINE_BANK.value)
-        if bank_value:
-            return cls._get_value_divided_by_factor(bank_value)
-        return cls._NO_STATISTIC_VALUE
+        return cls._get_value_divided_by_factor(bank_value)
 
     @classmethod
     def _get_total_transfers(cls, team_info: Dict[str, Any]) -> int:
         return team_info.get(FieldName.LAST_DEADLINE_TOTAL_TRANSFERS.value)
 
     @classmethod
-    def _get_summary_overall_points(cls, team_info: Dict[str, Any]):
+    def _get_summary_overall_points(cls, team_info: Dict[str, Any]) -> int:
         return team_info.get(FieldName.SUMMARY_OVERALL_POINTS.value)
 
     @classmethod
-    def _get_summary_overall_rank(cls, team_info: Dict[str, Any]):
+    def _get_summary_overall_rank(cls, team_info: Dict[str, Any]) -> str:
         return cls._get_formatted_rank_value(team_info.get(FieldName.SUMMARY_OVERALL_RANK.value))
 
     @classmethod
-    def _get_summary_event_points(cls, team_info: Dict[str, Any]):
+    def _get_summary_event_points(cls, team_info: Dict[str, Any]) -> int:
         return team_info.get(FieldName.SUMMARY_EVENT_POINTS.value)
 
     @classmethod
-    def _get_summary_event_rank(cls, team_info: Dict[str, Any]):
+    def _get_summary_event_rank(cls, team_info: Dict[str, Any]) -> str:
         return cls._get_formatted_rank_value(team_info.get(FieldName.SUMMARY_EVENT_RANK.value))
 
     @classmethod
