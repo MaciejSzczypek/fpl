@@ -1,7 +1,9 @@
-from unittest.mock import Mock, patch
-from modules.team_statistics_provider import TeamStatisticsProvider
-import pytest
 from typing import Dict, Any
+from unittest.mock import Mock, patch
+
+import pytest
+
+from modules.team_statistics_provider import BasicTeamStatisticsProvider
 
 # region TEST_CASE_EMPTY_STATISTICS
 TEAM_1_STATISTICS_REQUEST_RESPONSE = {}
@@ -62,7 +64,7 @@ class TestTeamStatisticsProvider:
         "team_statistics_request_response,team_name,team_entry,expected_team_statistics",
         [TEST_CASE_EMPTY_STATISTICS, TEST_CASE_FULLY_FILLED_STATISTICS]
     )
-    @patch("modules.team_statistics_provider.TeamStatisticsProvider._get_team_info")
+    @patch("modules.team_statistics_provider.BasicTeamStatisticsProvider._get_team_info")
     def test_get_basic_team_statistics(
             self,
             mocked__get_team_info: Mock,
@@ -72,7 +74,7 @@ class TestTeamStatisticsProvider:
             expected_team_statistics: Dict[str, Any],
     ) -> None:
         mocked__get_team_info.return_value = team_statistics_request_response
-        team_statistics = TeamStatisticsProvider.get_basic_team_statistics(
+        team_statistics = BasicTeamStatisticsProvider.get_team_statistics(
             team_name=team_name, team_entry=team_entry
         )
         assert team_statistics == expected_team_statistics

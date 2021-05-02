@@ -1,6 +1,6 @@
 import tabulate
 import argparse
-from modules.league_statistics_provider import LeagueStatisticsProvider
+from modules.league_statistics_provider import BasicLeagueStatisticsProvider
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -11,7 +11,7 @@ if __name__ == "__main__":
         type=int,
     )
     args = parser.parse_args()
-    league_statistics_provider = LeagueStatisticsProvider(league_entry=args.league_entry)
+    league_statistics_provider = BasicLeagueStatisticsProvider(league_entry=args.league_entry)
     teams_statistics = league_statistics_provider.get_league_statistics()
     tabulated_team_statistics = tabulate.tabulate(teams_statistics, headers="keys")
     print(tabulated_team_statistics)
