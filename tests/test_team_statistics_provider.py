@@ -1,7 +1,6 @@
 from unittest.mock import Mock, patch
 from modules.team_statistics_provider import TeamStatisticsProvider
 import pytest
-import requests
 from typing import Dict, Any
 
 # region TEST_CASE_EMPTY_STATISTICS

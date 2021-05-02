@@ -23,7 +23,7 @@ class LeagueStatisticsProvider:
             for player_dict in league_info_dict[FieldName.STANDINGS.value][FieldName.RESULTS.value]
         }
 
-    def get_teams_statistics(self) -> List[Dict[str, Any]]:
+    def get_league_statistics(self) -> List[Dict[str, Any]]:
         return [
             TeamStatisticsProvider.get_basic_team_statistics(
                 team_name=team, team_entry=entry
