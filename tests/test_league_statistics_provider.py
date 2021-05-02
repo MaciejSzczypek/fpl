@@ -3,7 +3,7 @@ from unittest.mock import patch, Mock
 
 import pytest
 
-from modules.league_statistics_provider import LeagueStatisticsProvider
+from modules.league_statistics_provider import BasicLeagueStatisticsProvider
 
 # region constants
 LEAGUE_ENTRY = 1000
@@ -158,9 +158,9 @@ class TestLeagueStatisticsProvider:
         "league_request_response,league_entry,expected_statistics",
         [TEST_CASE_NO_LEAGUE_PARTICIPANTS, TEST_CASE_3_PARTICIPANTS]
     )
-    @patch("modules.league_statistics_provider.LeagueStatisticsProvider._get_league_info")
+    @patch("modules.league_statistics_provider.BasicLeagueStatisticsProvider._get_league_info")
     @patch(
-        "modules.team_statistics_provider.TeamStatisticsProvider._get_team_info",
+        "modules.team_statistics_provider.BasicTeamStatisticsProvider._get_team_info",
         side_effect=_get_team_info_mock,
     )
     def test_get_teams_statistics_df(
@@ -172,6 +172,6 @@ class TestLeagueStatisticsProvider:
             expected_statistics: List[Dict[str, Any]],
     ) -> None:
         mocked__get_league_info.return_value = league_request_response
-        league_statistics_provider = LeagueStatisticsProvider(league_entry)
+        league_statistics_provider = BasicLeagueStatisticsProvider(league_entry)
         league_statistics = league_statistics_provider.get_league_statistics()
         assert league_statistics == expected_statistics
