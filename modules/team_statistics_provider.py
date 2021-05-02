@@ -1,5 +1,5 @@
 import json
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 import requests
 
@@ -11,10 +11,12 @@ class TeamStatisticsProvider:
 
     @classmethod
     def _get_value_divided_by_factor(cls, value: float) -> float:
-        return value / cls._DIVISION_FACTOR
+        return None if value is None else value / cls._DIVISION_FACTOR
 
     @classmethod
     def _get_formatted_rank_value(cls, rank_value: int) -> str:
+        if rank_value is None:
+            return rank_value
         rank_value_string = str(rank_value)
         formatted_rank_value = ""
         for character_position in range(1, len(rank_value_string) + 1):
