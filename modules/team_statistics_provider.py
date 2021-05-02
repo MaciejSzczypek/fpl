@@ -56,11 +56,13 @@ class TeamStatisticsProvider:
         return cls._get_formatted_rank_value(team_info.get(FieldName.SUMMARY_EVENT_RANK.value))
 
     @classmethod
+    def _get_team_info(cls, team_entry: int) -> Dict[str, Any]:
+        response = requests.get(TEAM_REQUEST_TEMPLATE.substitute(team_entry=team_entry))
+        return json.loads(response.text)
+
+    @classmethod
     def get_basic_team_statistics(cls, team_name: str, team_entry: int) -> Dict[str, Any]:
-        response = requests.get(
-            TEAM_REQUEST_TEMPLATE.substitute(team_entry=team_entry)
-        )
-        team_info = json.loads(response.text)
+        team_info = cls._get_team_info(team_entry)
         team_statistics = {
             FieldName.TEAM_NAME.value: team_name,
             FieldName.SUMMARY_OVERALL_POINTS.value: cls._get_summary_overall_points(team_info),
