@@ -1,6 +1,5 @@
 import json
-from typing import Dict, Any
-import pandas as pd
+from typing import Dict, Any, List
 import requests
 
 from modules.constants import FieldName, LEAGUE_REQUEST_TEMPLATE
@@ -24,11 +23,10 @@ class LeagueStatisticsProvider:
             for player_dict in league_info_dict[FieldName.STANDINGS.value][FieldName.RESULTS.value]
         }
 
-    def get_teams_statistics_df(self) -> pd.DataFrame:
-        teams_statistics = [
+    def get_teams_statistics(self) -> List[Dict[str, Any]]:
+        return [
             TeamStatisticsProvider.get_basic_team_statistics(
                 team_name=team, team_entry=entry
             )
             for team, entry in self._get_team_names_to_entry_mapping().items()
         ]
-        return pd.DataFrame(teams_statistics)
