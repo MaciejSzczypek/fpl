@@ -13,7 +13,7 @@ The API urls have been found here: https://www.reddit.com/r/FantasyPL/comments/c
 ## <a name="technologies_used"></a>Technologies used in the project
 * Python 3.8
 
-## Entry point
+## <a name="entry_point">Entry point
 In order to get the standings and statistics for specific league simply run 
 
 `show_league_statistics.py ---league_entry=$YOUR_LEAGUE_ENTRY`
