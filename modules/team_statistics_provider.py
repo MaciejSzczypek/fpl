@@ -10,11 +10,11 @@ class TeamStatisticsProvider:
     _DIVISION_FACTOR = 10
 
     @classmethod
-    def _get_value_divided_by_factor(cls, value: float) -> float:
+    def _get_value_divided_by_factor(cls, value: Optional[float]) -> Optional[float]:
         return None if value is None else value / cls._DIVISION_FACTOR
 
     @classmethod
-    def _get_formatted_rank_value(cls, rank_value: int) -> str:
+    def _get_formatted_rank_value(cls, rank_value: Optional[int]) -> Optional[str]:
         if rank_value is None:
             return rank_value
         rank_value_string = str(rank_value)
@@ -26,33 +26,33 @@ class TeamStatisticsProvider:
         return formatted_rank_value
 
     @classmethod
-    def _get_team_value(cls, team_info: Dict[str, Any]) -> float:
+    def _get_team_value(cls, team_info: Dict[str, Any]) -> Optional[float]:
         team_value = team_info.get(FieldName.LAST_DEADLINE_TEAM_VALUE.value)
         return cls._get_value_divided_by_factor(team_value)
 
     @classmethod
-    def _get_team_bank_value(cls, team_info: Dict[str, Any]) -> float:
+    def _get_team_bank_value(cls, team_info: Dict[str, Any]) -> Optional[float]:
         bank_value = team_info.get(FieldName.LAST_DEADLINE_BANK.value)
         return cls._get_value_divided_by_factor(bank_value)
 
     @classmethod
-    def _get_total_transfers(cls, team_info: Dict[str, Any]) -> int:
+    def _get_total_transfers(cls, team_info: Dict[str, Any]) -> Optional[int]:
         return team_info.get(FieldName.LAST_DEADLINE_TOTAL_TRANSFERS.value)
 
     @classmethod
-    def _get_summary_overall_points(cls, team_info: Dict[str, Any]) -> int:
+    def _get_summary_overall_points(cls, team_info: Dict[str, Any]) -> Optional[int]:
         return team_info.get(FieldName.SUMMARY_OVERALL_POINTS.value)
 
     @classmethod
-    def _get_summary_overall_rank(cls, team_info: Dict[str, Any]) -> str:
+    def _get_summary_overall_rank(cls, team_info: Dict[str, Any]) -> Optional[str]:
         return cls._get_formatted_rank_value(team_info.get(FieldName.SUMMARY_OVERALL_RANK.value))
 
     @classmethod
-    def _get_summary_event_points(cls, team_info: Dict[str, Any]) -> int:
+    def _get_summary_event_points(cls, team_info: Dict[str, Any]) -> Optional[int]:
         return team_info.get(FieldName.SUMMARY_EVENT_POINTS.value)
 
     @classmethod
-    def _get_summary_event_rank(cls, team_info: Dict[str, Any]) -> str:
+    def _get_summary_event_rank(cls, team_info: Dict[str, Any]) -> Optional[str]:
         return cls._get_formatted_rank_value(team_info.get(FieldName.SUMMARY_EVENT_RANK.value))
 
     @classmethod
