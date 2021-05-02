@@ -14,7 +14,7 @@ class FieldName(Enum):
     SUMMARY_EVENT_RANK = "summary_event_rank"
     SUMMARY_OVERALL_POINTS = "summary_overall_points"
     SUMMARY_OVERALL_RANK = "summary_overall_rank"
-    TEAM_NAME = "Team name"
+    TEAM_NAME = "team_name"
 
 
 LEAGUE_REQUEST_TEMPLATE = Template(
