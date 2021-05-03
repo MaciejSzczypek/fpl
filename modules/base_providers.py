@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from multiprocessing.pool import ThreadPool
 from typing import Dict, Any, Optional, List
 
 import requests
@@ -86,9 +87,8 @@ class BaseLeagueStatisticsProvider(ABC):
         }
 
     def get_league_statistics(self) -> List[Dict[str, Any]]:
-        return [
-            self._TEAM_STATISTICS_PROVIDER.get_team_statistics(
-                team_name=team, team_entry=entry
+        with ThreadPool() as pool:
+            return pool.starmap(
+                self._TEAM_STATISTICS_PROVIDER.get_team_statistics,
+                self._get_team_names_to_entry_mapping().items()
             )
-            for team, entry in self._get_team_names_to_entry_mapping().items()
-        ]
